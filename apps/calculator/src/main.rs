@@ -1,14 +1,17 @@
 #![no_std]
 #![no_main]
 
-// Native executable entry point will be connected once the real Aether
-// userspace ABI is implemented and runtime-tested. Do not guess syscalls.
+#[path = "lib.rs"]
+mod calculator;
+mod abi;
+mod app;
+
 #[no_mangle]
 pub extern "C" fn _start() -> ! {
-    loop { unsafe { core::arch::asm!("hlt"); } }
+    app::run()
 }
 
 #[panic_handler]
 fn panic(_: &core::panic::PanicInfo) -> ! {
-    loop { unsafe { core::arch::asm!("hlt"); } }
+    abi::exit(1)
 }
