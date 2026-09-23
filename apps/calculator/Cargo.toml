@@ -1,0 +1,11 @@
+[package]
+name = "aether-calculator"
+version = "0.1.0"
+edition = "2021"
+
+[profile.release]
+panic = "abort"
+
+[[bin]]
+name = "calculator"
+path = "src/main.rs"
