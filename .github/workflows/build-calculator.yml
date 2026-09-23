@@ -1,0 +1,26 @@
+name: Aether Calculator
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust target
+        run: rustup target add x86_64-unknown-none
+      - name: Build Calculator ELF
+        run: cargo build --release --manifest-path apps/calculator/Cargo.toml
+      - name: Validate ELF
+        run: |
+          file target/x86_64-unknown-none/release/calculator
+          readelf -h target/x86_64-unknown-none/release/calculator
+      - name: Publish Calculator ELF
+        uses: actions/upload-artifact@v4
+        with:
+          name: aether-calculator-elf
+          path: target/x86_64-unknown-none/release/calculator
+          retention-days: 30
