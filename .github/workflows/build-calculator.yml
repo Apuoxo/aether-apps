@@ -25,6 +25,7 @@ jobs:
           file apps/calculator/target/x86_64-unknown-none/release/calculator
           readelf -h apps/calculator/target/x86_64-unknown-none/release/calculator
       - name: Publish Calculator ELF into repository package tree
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
           set -e
           mkdir -p apps/calculator/dist
