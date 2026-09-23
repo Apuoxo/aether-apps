@@ -17,11 +17,11 @@ jobs:
         run: cargo build --release
       - name: Validate ELF
         run: |
-          file target/x86_64-unknown-none/release/calculator
-          readelf -h target/x86_64-unknown-none/release/calculator
+          file apps/calculator/target/x86_64-unknown-none/release/calculator
+          readelf -h apps/calculator/target/x86_64-unknown-none/release/calculator
       - name: Publish Calculator ELF
         uses: actions/upload-artifact@v4
         with:
           name: aether-calculator-elf
-          path: target/x86_64-unknown-none/release/calculator
+          path: apps/calculator/target/x86_64-unknown-none/release/calculator
           retention-days: 30
