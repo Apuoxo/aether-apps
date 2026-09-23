@@ -15,3 +15,7 @@ The first milestone is a native Aether userspace calculator with:
 The current Aether kernel has an ELF loader and process table, but the inspected source does not yet expose a documented, tested application syscall/GUI ABI. Therefore this repository does not guess one.
 
 The arithmetic engine is implemented now. The native executable adapter will be connected only after the kernel-side contract exists.
+
+
+## CI ELF
+The Calculator is built as a freestanding x86_64 ELF (`x86_64-unknown-none`) by GitHub Actions. The resulting ELF is the packaged application image consumed by the Aether OS build; the kernel does not reimplement the calculator logic.
