@@ -1,4 +1,3 @@
-#![no_std]
 
 #[derive(Clone, Copy)]
 pub struct Calculator {
