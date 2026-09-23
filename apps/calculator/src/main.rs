@@ -1,8 +1,7 @@
 #![no_std]
 #![no_main]
 
-#[path = "lib.rs"]
-mod calculator;
+mod engine;
 mod abi;
 mod app;
 
