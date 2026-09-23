@@ -3,7 +3,12 @@ name: Aether Calculator
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - 'apps/calculator/dist/calculator.elf'
   pull_request:
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -19,9 +24,17 @@ jobs:
         run: |
           file apps/calculator/target/x86_64-unknown-none/release/calculator
           readelf -h apps/calculator/target/x86_64-unknown-none/release/calculator
-      - name: Publish Calculator ELF
-        uses: actions/upload-artifact@v4
-        with:
-          name: aether-calculator-elf
-          path: apps/calculator/target/x86_64-unknown-none/release/calculator
-          retention-days: 30
+      - name: Publish Calculator ELF into repository package tree
+        run: |
+          set -e
+          mkdir -p apps/calculator/dist
+          cp apps/calculator/target/x86_64-unknown-none/release/calculator apps/calculator/dist/calculator.elf
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add apps/calculator/dist/calculator.elf
+          if git diff --cached --quiet; then
+            echo "Calculator ELF unchanged"
+            exit 0
+          fi
+          git commit -m "build: publish Calculator ELF"
+          git push
