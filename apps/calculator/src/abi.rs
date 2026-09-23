@@ -23,14 +23,14 @@ pub fn poll_key(ev: &mut KeyEvent) -> u64 {
 #[inline(always)]
 pub fn draw_text(x: usize, y: usize, text: *const u8, color: u32) -> u64 {
     let ret: u64;
-    unsafe { core::arch::asm!("int 0x80", in("rax") SYS_DRAW_TEXT, in("rdi") x as u64, in("rsi") y as u64, in("rdx") text as u64, in("rcx") color as u64, lateout("rax") ret, options(nostack)); }
+    unsafe { core::arch::asm!("int 0x80", in("rax") SYS_DRAW_TEXT, in("rdi") x as u64, in("rsi") y as u64, in("rdx") text as u64, in("r10") color as u64, lateout("rax") ret, options(nostack)); }
     ret
 }
 
 #[inline(always)]
 pub fn fill_rect(x: usize, y: usize, w: usize, h: usize, color: u32) -> u64 {
     let ret: u64;
-    unsafe { core::arch::asm!("int 0x80", in("rax") SYS_FILL_RECT, in("rdi") x as u64, in("rsi") y as u64, in("rdx") w as u64, in("rcx") h as u64, in("r8") color as u64, lateout("rax") ret, options(nostack)); }
+    unsafe { core::arch::asm!("int 0x80", in("rax") SYS_FILL_RECT, in("rdi") x as u64, in("rsi") y as u64, in("rdx") w as u64, in("r10") h as u64, in("r8") color as u64, lateout("rax") ret, options(nostack)); }
     ret
 }
 
