@@ -13,7 +13,8 @@ jobs:
       - name: Install Rust target
         run: rustup target add x86_64-unknown-none
       - name: Build Calculator ELF
-        run: cargo build --release --manifest-path apps/calculator/Cargo.toml
+        working-directory: apps/calculator
+        run: cargo build --release
       - name: Validate ELF
         run: |
           file target/x86_64-unknown-none/release/calculator
